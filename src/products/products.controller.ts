@@ -1,12 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
+import { ProductsService } from './products.service';
 
 interface datos {id?:string,size?:string};
 type Product={articulo:string,precio:number,descripcion:string};
+type id={id:number;}
 @Controller('products')
 export class ProductsController {
-    @Get()
+   constructor(private readonly servicioProducts: ProductsService){}
+  @Get()
     findProducts():string{
-        return "Total de productos en el aula 2ASIR"
+        return this.servicioProducts.findAllProducts();
     }
     @Get('camiseta')
     findDetalle():string{
@@ -15,7 +18,11 @@ export class ProductsController {
     @Get('camiseta/roja')
     findAdios():string{
         return "Total de camisetas rojas!!"; 
-    }   
+    }
+    @Get('query')
+    busqueda(@Query() consulta:any):string{
+      return `Estás consultando por el ${consulta.articulo} con el precio entre ${consulta.precioMin} y ${consulta.precioMax}` ;
+    }  
     // @Get(':id')
     // findById(@Param() parametros:any):string{
     //     return `Obteniendo productso del parámetro ${parametros.id}`
@@ -48,16 +55,26 @@ export class ProductsController {
     // }
     @Post()
     insertaProducts(@Body() producto:Product){
-        return `El producto ${producto.articulo} de precio ${producto.precio} se ha insertado correctamente`;
+      if (producto.articulo==='tablet')
+        return {
+            status:HttpStatus.OK,
+            message:`El producto ${producto.articulo} de precio ${producto.precio} se ha insertado correctamente`
+        }
+      else{
+        return {
+          status:HttpStatus.NOT_ACCEPTABLE,
+          message:`Sólo se pueden introducir artículos de tablets`
+      }
+      }
     }
-    @Put()
-    actualizaProducts():string{
-        return "Producto ACTUALIZADO"
+    @Patch(':id')
+    actualizaProducts(@Param() ruta:any,@Body() actualizar:any):string{
+      return `El producto ${actualizar.id} tiene que actualizar el articulo a ${actualizar.articulo} y precio a ${actualizar.precio}`
     }
 
-    @Delete()
-    borraProducts():string{
-        return "Producto Borrado"
+    @Delete(':id')
+    borraProducts(@Param('id',ParseIntPipe) producto:number):string{
+        return `El producto ${producto} va a ser borrado`
     }
 
 }
