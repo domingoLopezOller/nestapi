@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseFloatPipe, ParseIntPipe, Patch, Post, Put, Query } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { Products } from './products.interface';
+import { ProductsDto } from './dto/products.dto/products.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -9,17 +10,20 @@ export class ProductsController {
    getAllProducts():Products[] {
        return this.servicioProducts.getAll();
    }
-   @Get(':id')
-   getByID(@Param('id') valor:number):Products{
-      return this.servicioProducts.getId(valor);
+   @Get('total')
+   getTotal(){
+       return `El array tiene : ${this.servicioProducts.total()} elementos`;
    }
+   @Get(':id')
+    getId(@Param('id',ParseIntPipe)  id: number): Products {
+        return this.servicioProducts.findOne(id);
+    }
 @Post()
-createProduct(@Body('articulo') articulo:string, 
- @Body('precio',ParseFloatPipe) precio:number):{status:HttpStatus,msg:string} {
+createProduct(@Body() producto:ProductsDto):{status:HttpStatus,msg:string} {
        return this.servicioProducts.insert({
            id: this.servicioProducts.getAll().length+1,
-           articulo,
-           precio
+           articulo:producto.articulo, //Este es el fallo del viernes que no creaba el formato json con DTO
+           precio: producto.precio
            });
    }
   @Put(':id')
