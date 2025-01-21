@@ -1,18 +1,18 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 @Entity()
-export class Alumno {
+export class Usuario {
   @PrimaryGeneratedColumn() // Genera un id autoincremental, si sólo fuera clave sería @PrimaryColumn()
   id: number;
   @Column({ type: 'varchar', length: 50 })
-  	nombre: string;
+    nombre: string;
   @Column({ unique: true })
-  	email: string;
+    email: string;
   @Column()
-  	password: string;
+    password: string;
   @Column({ default: true })
-  	activo: boolean;
+    activo: boolean;
   @CreateDateColumn() // Fecha de creación automática
-	fechaCreacion: Date;
+    fechaCreacion: Date;
   @UpdateDateColumn() // Fecha de actualización automática
-  	fechaActualizacion: Date;
+    fechaActualizacion: Date;
 }

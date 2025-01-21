@@ -8,6 +8,7 @@ export class ProductsDto {
     
     @IsInt()
     @Min(0,{message:"Tiene que ser positivo"})
+    // @IsDecimal({decimal_digits:"2",force_decimal:true})
     precio:number;
     @IsAccountNumber()
     numeroCuenta?:string;
