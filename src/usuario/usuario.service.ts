@@ -8,7 +8,7 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class UsuarioService {
   constructor(//Conexión con la base de datos
-    @InjectRepository(Usuario)
+    @InjectRepository(Usuario,'base2')
     private usuarioRepository:Repository<Usuario>
   ){}
   async create(createUsuarioDto: CreateUsuarioDto):Promise<Usuario> {
@@ -31,7 +31,22 @@ export class UsuarioService {
     return this.usuarioRepository.save(usuario);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} usuario`;
+  async remove(id: number):Promise<void> {
+    const usuario=await this.findOne(id);
+    await this.usuarioRepository.remove(usuario);
+  }
+
+  async findByEmail(email:string):Promise<Usuario|void>{
+    return await this.usuarioRepository.findOne({where:{email}});
+  }
+  async activateUser(id:number):Promise<Usuario>{
+    const usuario=await this.usuarioRepository.findOne({where:{id}});
+    usuario.activo=true;
+    return await this.usuarioRepository.save(usuario);
+  }
+  async deactivateUser(id:number):Promise<Usuario>{
+    const usuario=await this.usuarioRepository.findOne({where:{id}});
+    usuario.activo=false;
+    return await this.usuarioRepository.save(usuario);
   }
 }
