@@ -2,6 +2,8 @@ import { Module} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsuarioModule } from './usuario/usuario.module';
+import { AlumnoModule } from './alumno/alumno.module';
+import { BibliotecaModule } from './biblioteca/biblioteca.module';
 
 @Module({
   imports: [ConfigModule.forRoot({isGlobal:true,}), 
@@ -13,7 +15,7 @@ import { UsuarioModule } from './usuario/usuario.module';
       username:process.env.USUARIO,
       password:process.env.PASSWORD,
       database: process.env.DBNAME,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      autoLoadEntities:true,//Esta es la mejor opción para que coja sólo las que haya en módulo
       synchronize:true
     }),
     TypeOrmModule.forRoot({
@@ -24,10 +26,12 @@ import { UsuarioModule } from './usuario/usuario.module';
       username:process.env.USUARIO,
       password:process.env.PASSWORD,
       database: process.env.DBNAME2,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      autoLoadEntities:true,//Esta es la mejor opción para que coja sólo las que haya en módulo
       synchronize:true
     }),
-    UsuarioModule
+    UsuarioModule,
+    AlumnoModule,
+    BibliotecaModule
   ],
   controllers: [],
   providers: [],
