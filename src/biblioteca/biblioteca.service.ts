@@ -3,7 +3,7 @@ import { CreateBibliotecaDto } from './dto/create-biblioteca.dto';
 import { UpdateBibliotecaDto } from './dto/update-biblioteca.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Biblioteca } from './entities/biblioteca.entity';
-import { Repository } from 'typeorm';
+import { MoreThan, Repository } from 'typeorm';
 
 @Injectable()
 export class BibliotecaService {
@@ -17,22 +17,32 @@ export class BibliotecaService {
     
   }
 
-  findAll() {
-    return `This action returns all biblioteca`;
+  async findAll():Promise<Biblioteca[]> {
+    return this.bibliotecaRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} biblioteca`;
+  async findOne(id: number):Promise<Biblioteca> {
+    return this.bibliotecaRepository.findOne({where:{id}});
   }
 
-  update(id: number, updateBibliotecaDto: UpdateBibliotecaDto) {
-    return `This action updates a #${id} biblioteca`;
+  async update(id: number, updateBibliotecaDto: UpdateBibliotecaDto):Promise<string> {
+    const libro=await this.findOne(id);
+    this.bibliotecaRepository.merge(libro,updateBibliotecaDto);
+    this.bibliotecaRepository.save(libro);
+    return `El libro con id=#${id} ha sido modificado`;
   }
 
   async remove(id: number):Promise<string> {
-    await this.bibliotecaRepository.remove(id);
+    const libro= await this.findOne(id);
+    this.bibliotecaRepository.remove(libro);
     return "Elemento de la base de datos eliminado";
   }
   
+  async buscaEditorial(editorial:string):Promise<Biblioteca[]>{
+    return this.bibliotecaRepository.find({where:{editorial}})
+  }
+  async buscaTema(stock:number):Promise<Biblioteca[]>{
+    return this.bibliotecaRepository.find({where:{stock:MoreThan(stock)}})
+  }
 }
 
