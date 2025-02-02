@@ -2,6 +2,8 @@ import { Module} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BibliotecaModule } from './biblioteca/biblioteca.module';
+import { PostsModule } from './_api/posts/posts.module';
+import { UsersModule } from './_api/users/users.module';
 
 
 @Module({
@@ -28,7 +30,9 @@ import { BibliotecaModule } from './biblioteca/biblioteca.module';
       autoLoadEntities:true,//Esta es la mejor opción para que coja sólo las que haya en módulo
       synchronize:true
     }),
-    BibliotecaModule
+    BibliotecaModule,
+    PostsModule,
+    UsersModule
   ],
   controllers: [],
   providers: [],
