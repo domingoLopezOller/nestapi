@@ -7,8 +7,11 @@ export class User {
   id: number;
 
   @Column()
-  nombre: string;
+  usuario: string;
 
-  @OneToMany(() => Posts, (post) => post.user)
+  @Column()
+  email: string;
+
+  @OneToMany(() => Posts, post => post.user)
   posts: Posts[];
 }
