@@ -2,8 +2,15 @@ import { Module} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BibliotecaModule } from './biblioteca/biblioteca.module';
-import { PostsModule } from './_api/posts/posts.module';
-import { UsersModule } from './_api/users/users.module';
+import { PostsModule } from './_caso1:N/posts/posts.module';
+import { UsersModule } from './_caso1:N/users/users.module';
+import { UserModule } from './_caso1:1/user/user.module';
+import { ProfileModule } from './_caso1:1/profile/profile.module';
+import { ProductoModule } from './_1casoN:N/producto/producto.module';
+import { TallaModule } from './_1casoN:N/talla/talla.module';
+import { ProductotallaModule } from './_1casoN:N/productotalla/productotalla.module';
+import { Producto2Module } from './_2casoN:N/producto2/producto2.module';
+import { Talla2Module } from './_2casoN:N/talla2/talla2.module';
 
 
 @Module({
@@ -32,7 +39,14 @@ import { UsersModule } from './_api/users/users.module';
     }),
     BibliotecaModule,
     PostsModule,
-    UsersModule
+    UsersModule,
+    UserModule,
+    ProfileModule,
+    ProductoModule,
+    TallaModule,
+    ProductotallaModule,
+    Producto2Module,
+    Talla2Module
   ],
   controllers: [],
   providers: [],

@@ -1,4 +1,4 @@
-import { Posts } from 'src/_api/posts/entities/post.entity';
+import { Posts } from 'src/_caso1:N/posts/entities/post.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity()
