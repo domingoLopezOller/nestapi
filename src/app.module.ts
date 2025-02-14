@@ -11,6 +11,10 @@ import { TallaModule } from './_1casoN:N/talla/talla.module';
 import { ProductotallaModule } from './_1casoN:N/productotalla/productotalla.module';
 import { Producto2Module } from './_2casoN:N/producto2/producto2.module';
 import { Talla2Module } from './_2casoN:N/talla2/talla2.module';
+import { ProveedorModule } from './_recambios/proveedor/proveedor.module';
+import { PiezaModule } from './_recambios/pieza/pieza.module';
+import { CategoriaModule } from './_recambios/categoria/categoria.module';
+import { SuministraModule } from './_recambios/suministra/suministra.module';
 
 
 @Module({
@@ -46,7 +50,11 @@ import { Talla2Module } from './_2casoN:N/talla2/talla2.module';
     TallaModule,
     ProductotallaModule,
     Producto2Module,
-    Talla2Module
+    Talla2Module,
+    ProveedorModule,
+    PiezaModule,
+    CategoriaModule,
+    SuministraModule
   ],
   controllers: [],
   providers: [],
