@@ -15,6 +15,8 @@ import { ProveedorModule } from './_recambios/proveedor/proveedor.module';
 import { PiezaModule } from './_recambios/pieza/pieza.module';
 import { CategoriaModule } from './_recambios/categoria/categoria.module';
 import { SuministraModule } from './_recambios/suministra/suministra.module';
+import { AutorModule } from './_biblioteca/autor/autor.module';
+import { LibroModule } from './_biblioteca/libro/libro.module';
 
 
 @Module({
@@ -54,7 +56,9 @@ import { SuministraModule } from './_recambios/suministra/suministra.module';
     ProveedorModule,
     PiezaModule,
     CategoriaModule,
-    SuministraModule
+    SuministraModule,
+    AutorModule,
+    LibroModule
   ],
   controllers: [],
   providers: [],
