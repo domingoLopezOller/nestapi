@@ -17,6 +17,8 @@ import { CategoriaModule } from './_recambios/categoria/categoria.module';
 import { SuministraModule } from './_recambios/suministra/suministra.module';
 import { AutorModule } from './_biblioteca/autor/autor.module';
 import { LibroModule } from './_biblioteca/libro/libro.module';
+import { AuthModule } from './_biblioteca/auth/auth.module';
+import { UsuarioModule } from './_biblioteca/users/users.module';
 
 
 @Module({
@@ -58,7 +60,9 @@ import { LibroModule } from './_biblioteca/libro/libro.module';
     CategoriaModule,
     SuministraModule,
     AutorModule,
-    LibroModule
+    LibroModule,
+    AuthModule,
+    UsuarioModule
   ],
   controllers: [],
   providers: [],
